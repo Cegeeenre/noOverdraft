@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">NoOverdraft</string>
+    <string name="app_dashboard_text">Tableau de bord</string>
+    <string name="app_mois_dashboard">Mois</string>
+    <string name="app_compte_dashboard">Mois</string>
+    <string name="app_semaine_dashboard">Semaine</string>
+    <string name="app_depense_nourriture">Nourriture</string>
+    <string name="app_depense_divers">Divers</string>
+    <string name="app_depense_maison">Maison</string>
+
+
+</resources>
