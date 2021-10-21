@@ -7,12 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".activity.ListActivity">
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/contact_list"
+            android:id="@+id/depense_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
