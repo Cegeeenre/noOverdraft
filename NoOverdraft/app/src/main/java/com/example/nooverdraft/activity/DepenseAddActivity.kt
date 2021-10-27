@@ -30,17 +30,18 @@ class DepenseAddActivity : AppCompatActivity() {
 
         buttonadd.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                Log.i("test", "BONJOUR")
+                //Log.i("test", "BONJOUR")
 
-                var nom = findViewById<EditText>(R.id.add_nom).toString()
-                var montant = findViewById<EditText>(R.id.add_depense).toString()
-                Log.i("test", montant)
-                val description = findViewById<EditText>(R.id.add_description).toString()
+                var nom = findViewById<EditText>(R.id.add_nom).getText().toString()
+                //Log.i("nom", nom)
+                var montant = findViewById<EditText>(R.id.add_depense).getText().toString().toInt()
+                val description = findViewById<EditText>(R.id.add_description).getText().toString()
+                //Log.i("description", description)
 
                 Toast.makeText(applicationContext, "hjhhhhhhhhh", Toast.LENGTH_SHORT).show()
 
                 var maDepense:Depense =Depense(
-                    0, nom, 10, description,
+                    0, nom, montant, description,
                     "Nourriture", "30/05/2021")
 
                 DepenseJSONFileStorage.get(applicationContext).insert(maDepense)

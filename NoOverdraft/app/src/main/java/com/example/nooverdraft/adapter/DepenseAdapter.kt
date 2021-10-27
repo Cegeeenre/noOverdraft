@@ -16,6 +16,7 @@ abstract class DepenseAdapter(val depenses : List<Depense>) : RecyclerView.Adapt
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val depenseImage = view.findViewById<ImageView>(R.id.image_depense)
         val depensenom = view.findViewById<TextView>(R.id.nom_depense)
+        val depensemontant = view.findViewById<TextView>(R.id.montant_depense)
 
     }
 
@@ -30,6 +31,7 @@ abstract class DepenseAdapter(val depenses : List<Depense>) : RecyclerView.Adapt
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.depensenom.text = depenses.get(position).nom
+        holder.depensemontant.text = "- " + depenses.get(position).montant.toString() + "$"
 
     }
 
