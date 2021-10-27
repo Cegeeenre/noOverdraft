@@ -12,13 +12,13 @@ import org.json.JSONObject
 class DepenseJSONFileStorage private constructor(context: Context) : JSONFileStorage<Depense>(context, "depense") {
 
     companion object {
-        lateinit var STORAGE: DepenseJSONFileStorage
+        private var STORAGE: DepenseJSONFileStorage? = null
 
         fun get(context: Context) :DepenseJSONFileStorage {
             if (STORAGE == null) {
                 STORAGE = DepenseJSONFileStorage(context)
             }
-            return STORAGE
+            return STORAGE as DepenseJSONFileStorage
         }
     }
 
@@ -31,6 +31,7 @@ class DepenseJSONFileStorage private constructor(context: Context) : JSONFileSto
     override fun objectToJson(id : Int, obj : Depense) : JSONObject {
         val jsonObject = JSONObject()
         jsonObject.put(DEPENSE_ID, id)
+
         jsonObject.put(DEPENSE_NOM, obj.nom)
         jsonObject.put(DEPENSE_MONTANT, obj.montant)
         jsonObject.put(DEPENSE_DESCRIPTION, obj.description)

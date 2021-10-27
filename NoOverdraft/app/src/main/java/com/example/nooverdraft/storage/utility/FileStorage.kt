@@ -1,6 +1,7 @@
 package com.example.nooverdraft.storage.utility
 
 import android.content.Context
+import android.util.Log
 import java.io.BufferedReader
 import java.io.FileNotFoundException
 import java.io.InputStreamReader
@@ -31,6 +32,7 @@ abstract class FileStorage<T>(private val context: Context, name: String, extens
         try {
             val input = context.openFileInput(fileName)
             println(context.filesDir)
+            Log.i("fich", context.filesDir.toString())
             if (input != null) {
                 val builder = StringBuilder()
                 val bufferedReader = BufferedReader(InputStreamReader(input))
