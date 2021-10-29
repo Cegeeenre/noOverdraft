@@ -9,7 +9,7 @@ import com.example.nooverdraft.model.Depense.Companion.DEPENSE_NOM
 import com.example.nooverdraft.storage.utility.JSONFileStorage
 import org.json.JSONObject
 
-class DepenseJSONFileStorage internal constructor(context: Context) : JSONFileStorage<Depense>(context, "depense") {
+class DepenseJSONFileStorage private constructor(context: Context) : JSONFileStorage<Depense>(context, "depense") {
 
     companion object {
         private var STORAGE: DepenseJSONFileStorage? = null

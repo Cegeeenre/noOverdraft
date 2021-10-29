@@ -8,6 +8,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.NoOverdraft">
         <activity android:name=".activity.MainActivity"
             android:exported="true">
@@ -18,14 +19,17 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.ListActivity">
-        </activity>
 
         <activity
             android:name=".activity.DepenseAddActivity"
             android:label="@string/app_name">
         </activity>
 
-    </application>
+        <activity
+            android:name=".activity.ItemActivity">
+        </activity>
 
+
+    </application>
+    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>

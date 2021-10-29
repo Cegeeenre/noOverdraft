@@ -17,11 +17,11 @@ import com.example.nooverdraft.model.Depense
 import com.example.nooverdraft.storage.DepenseJSONFileStorage
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import android.Manifest
+import com.example.nooverdraft.dialog.Updatable
+import com.example.nooverdraft.request.AppRequest
 import com.example.nooverdraft.activity.DepenseAddActivity as DepenseAddActivity
 
-class MainActivity : AppCompatActivity() {
-
-    val depenses: ArrayList<Depense> = arrayListOf()
+class MainActivity : AppCompatActivity(), Updatable {
 
     companion object {
         val EXTRA_DEPENSE = "EXTRA_DEPENSE"
@@ -30,10 +30,8 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     lateinit var list: RecyclerView
     lateinit var button: FloatingActionButton
-    lateinit var json : DepenseJSONFileStorage
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,27 +44,25 @@ class MainActivity : AppCompatActivity() {
         if (!checkPermission()) {
             requestPermission()
         }
-        json  = DepenseJSONFileStorage(this)
-        depenses.addAll(json.findAll())
+
+        //AppRequest(this, this)
+
 
         list = findViewById<RecyclerView>(R.id.depense_list)
 
-        list.adapter = object : DepenseAdapter(depenses){
+        list.adapter = object : DepenseAdapter(applicationContext) {
             override fun onItemClick(view: View) {
-                val intent = Intent(applicationContext, MainActivity::class.java).apply{
-                    putExtra(
-                        EXTRA_DEPENSE,
-                        depenses.get(list.getChildViewHolder(view).adapterPosition)
-                    )
+                val intent = Intent(applicationContext, ItemActivity::class.java).apply {
+                    putExtra(EXTRA_DEPENSE, view.tag as Int)
                 }
                 startActivity(intent)
             }
+
             override fun onLongItemClick(view: View): Boolean {
                 Toast.makeText(applicationContext, "Je veux supprimer", Toast.LENGTH_SHORT).show()
                 return true
             }
         }
-
 
 
 
@@ -86,11 +82,9 @@ class MainActivity : AppCompatActivity() {
         //var depense = DepenseJSONFileStorage.get(this).findAll().get(iddep)
 
 
-
         //GetIntExtra pour récupérer la dépensepuis reafficher
 
         //var depense = intent.getIntExtra(EXTRA_DEPENSE, 0) as Depense
-
 
 
         /*
@@ -115,7 +109,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkPermission(): Boolean {
-        return ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+        return ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun requestPermission() {
@@ -129,8 +129,8 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-
-
-
+    override fun update() {
+        list.adapter?.notifyDataSetChanged()
+    }
 
 }

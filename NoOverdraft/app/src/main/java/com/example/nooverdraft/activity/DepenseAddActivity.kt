@@ -46,10 +46,7 @@ class DepenseAddActivity : AppCompatActivity() {
 
                 DepenseJSONFileStorage.get(applicationContext).insert(maDepense)
 
-
-                var i = Intent(this@DepenseAddActivity, MainActivity::class.java)
-                i.putExtra("id", maDepense.id)
-                this@DepenseAddActivity.startActivity(i)
+                finishActivity(0)
 
             }
         })
