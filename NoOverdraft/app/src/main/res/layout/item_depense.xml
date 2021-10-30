@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_margin="6dp"
+    android:background="@drawable/shadow">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -37,9 +39,12 @@
         android:id="@+id/nom_depense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/item_margin"
+        android:layout_marginStart="12dp"
+        android:textSize="16dp"
         android:text="@string/nom_depense_list"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cardView"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -50,7 +55,9 @@
         android:layout_marginRight="@dimen/default_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/view_separation"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/red_montant"
+        android:textSize="16dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
