@@ -33,17 +33,6 @@ import com.example.nooverdraft.model.Compte
 import com.example.nooverdraft.request.AppRequest
 import com.example.nooverdraft.storage.CompteJSONFileStorage
 import com.example.nooverdraft.activity.DepenseAddActivity as DepenseAddActivity
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-
-import android.app.PendingIntent
-import android.content.Context
-import android.graphics.BitmapFactory
-import android.graphics.Color
-import android.os.Build
-import android.widget.RemoteViews
-
 
 class MainActivity : AppCompatActivity(), Updatable {
 
@@ -101,7 +90,7 @@ class MainActivity : AppCompatActivity(), Updatable {
         if (CompteJSONFileStorage.get(applicationContext).size() < 1){
         var monCompte: Compte = Compte(
             0, "john", 2000
-        )
+        )}
         if (CompteJSONFileStorage.get(applicationContext).size() < 1) {
             CompteJSONFileStorage.get(applicationContext).insert(monCompte)
         }
