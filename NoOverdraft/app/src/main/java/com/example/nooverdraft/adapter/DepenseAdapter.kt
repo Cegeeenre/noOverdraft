@@ -11,11 +11,12 @@ import com.example.nooverdraft.R
 import com.example.nooverdraft.model.Depense
 import com.example.nooverdraft.storage.DepenseJSONFileStorage
 
-abstract class DepenseAdapter(private val context: Context) : RecyclerView.Adapter<DepenseAdapter.ViewHolder>() {
+abstract class DepenseAdapter(val context: Context) : RecyclerView.Adapter<DepenseAdapter.ViewHolder>() {
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val depenseImage = view.findViewById<ImageView>(R.id.image_depense)
         val depensenom = view.findViewById<TextView>(R.id.nom_depense)
+        val depensemontant = view.findViewById<TextView>(R.id.montant_depense)
 
     }
 
@@ -25,14 +26,16 @@ abstract class DepenseAdapter(private val context: Context) : RecyclerView.Adapt
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_depense, parent, false)
+        view.setOnClickListener{onItemClick(it)}
+        view.setOnLongClickListener{onLongItemClick(it)}
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var depense = DepenseJSONFileStorage.get(context).findAll().get(position)
+        val depense: Depense = DepenseJSONFileStorage.get(context).findAll().get(position)
         holder.depensenom.text = depense.nom
+        holder.depensemontant.text = "- " + depense.montant.toString() + "$"
         holder.itemView.tag = depense.id
-
     }
 
     override fun getItemCount(): Int {

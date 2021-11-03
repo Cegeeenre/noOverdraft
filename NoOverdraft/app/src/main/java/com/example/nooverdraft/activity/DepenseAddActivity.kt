@@ -1,10 +1,13 @@
 package com.example.nooverdraft.activity
 
+import android.accounts.AccountManager.get
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nooverdraft.R
@@ -15,21 +18,27 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class DepenseAddActivity : AppCompatActivity() {
 
+    lateinit var buttonadd: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add)
-        lateinit var buttonadd: Button
+
 
         buttonadd = findViewById<Button>(R.id.add_button_send) as Button
 
 
         buttonadd.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
+                //Log.i("test", "BONJOUR")
 
-                var nom = findViewById<EditText>(R.id.add_nom).toString()
-                var montant = findViewById<EditText>(R.id.add_depense).toString().toInt()
-                val description = findViewById<EditText>(R.id.add_description).toString()
+                var nom = findViewById<EditText>(R.id.add_nom).getText().toString()
+                //Log.i("nom", nom)
+                var montant = findViewById<EditText>(R.id.add_depense).getText().toString().toInt()
+                val description = findViewById<EditText>(R.id.add_description).getText().toString()
+                //Log.i("description", description)
 
+                Toast.makeText(applicationContext, "hjhhhhhhhhh", Toast.LENGTH_SHORT).show()
 
                 var maDepense:Depense =Depense(
                     0, nom, montant, description,
@@ -37,7 +46,7 @@ class DepenseAddActivity : AppCompatActivity() {
 
                 DepenseJSONFileStorage.get(applicationContext).insert(maDepense)
 
-                startActivity(Intent(this@DepenseAddActivity, DepenseAddActivity::class.java))
+                finishActivity(0)
 
             }
         })

@@ -10,4 +10,5 @@
     <string name="home_titre_depense">Dernière dépenses</string>
     <string name="nom_depense_list">Nom dépense</string>
     <string name="val_depense_list">-0000$</string>
+    <string name="request_success">bravo tu as réussi</string>
 </resources>
