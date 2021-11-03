@@ -17,7 +17,16 @@ import com.example.nooverdraft.model.Depense
 import com.example.nooverdraft.storage.DepenseJSONFileStorage
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import android.Manifest
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
+import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.os.Build
 import android.widget.LinearLayout
+import android.widget.RemoteViews
 import com.example.nooverdraft.adapter.CompteAdapter
 import com.example.nooverdraft.dialog.Updatable
 import com.example.nooverdraft.model.Compte
@@ -40,25 +49,36 @@ class MainActivity : AppCompatActivity(), Updatable {
     lateinit var button: FloatingActionButton
 
 
+    lateinit var notificationManager: NotificationManager
+    lateinit var notificationChannel: NotificationChannel
+    lateinit var builder: Notification.Builder
+    private val channelId = "i.apps.notifications"
+    private val description = "Test notification"
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
+        //Selection des boutons/Layout
         button = findViewById<FloatingActionButton>(R.id.depense_add) as FloatingActionButton
-
         zone_compte = findViewById<RecyclerView>(R.id.layout_compte)
         list = findViewById<RecyclerView>(R.id.depense_list)
 
 
 
-
+        //Permession test read/write
         if (!checkPermission()) {
             requestPermission()
         }
 
+        //Notification
+        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+
+        //Ajout du compte
         var monCompte : Compte = Compte(
             0, "john", 2000)
         if (CompteJSONFileStorage.get(applicationContext).size() < 1){
@@ -67,7 +87,7 @@ class MainActivity : AppCompatActivity(), Updatable {
 
 
 
-        //Compte
+        //Compte Affichage
         zone_compte.adapter = object : CompteAdapter(applicationContext){
             override fun onItemClick(view: View) {
 
@@ -106,6 +126,35 @@ class MainActivity : AppCompatActivity(), Updatable {
 
         button.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
+                val intent = Intent(this@MainActivity, MainActivity::class.java)
+                val contentView = RemoteViews(packageName, R.layout.activity_notification)
+
+                // checking if android version is greater than oreo(API 26) or not
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    notificationChannel = NotificationChannel(channelId, description, NotificationManager.IMPORTANCE_HIGH)
+                    notificationChannel.enableLights(true)
+                    notificationChannel.lightColor = Color.GREEN
+                    notificationChannel.enableVibration(false)
+                    notificationManager.createNotificationChannel(notificationChannel)
+
+                    builder = Notification.Builder(this@MainActivity, channelId)
+                        .setContent(contentView)
+                        .setSmallIcon(R.drawable.ic_launcher_background)
+                        .setLargeIcon(BitmapFactory.decodeResource(this@MainActivity.resources, R.drawable.ic_launcher_background))
+                        .setContentIntent(pendingIntent)
+                } else {
+
+                    builder = Notification.Builder(this@MainActivity)
+                        .setContent(contentView)
+                        .setSmallIcon(R.drawable.ic_launcher_background)
+                        .setLargeIcon(BitmapFactory.decodeResource(this@MainActivity.resources, R.drawable.ic_launcher_background))
+                        .setContentIntent(pendingIntent)
+                }
+                notificationManager.notify(1234, builder.build())
+
+                /////////////////////////////////////////////////
+
+
                 startActivity(Intent(this@MainActivity, DepenseAddActivity::class.java))
                 finish()
             }
