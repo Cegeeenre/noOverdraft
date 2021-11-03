@@ -17,8 +17,12 @@ import com.example.nooverdraft.model.Depense
 import com.example.nooverdraft.storage.DepenseJSONFileStorage
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import android.Manifest
+import android.widget.LinearLayout
+import com.example.nooverdraft.adapter.CompteAdapter
 import com.example.nooverdraft.dialog.Updatable
+import com.example.nooverdraft.model.Compte
 import com.example.nooverdraft.request.AppRequest
+import com.example.nooverdraft.storage.CompteJSONFileStorage
 import com.example.nooverdraft.activity.DepenseAddActivity as DepenseAddActivity
 
 class MainActivity : AppCompatActivity(), Updatable {
@@ -31,25 +35,51 @@ class MainActivity : AppCompatActivity(), Updatable {
 
 
     lateinit var list: RecyclerView
+    lateinit var zone_compte: RecyclerView
     lateinit var button: FloatingActionButton
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        list = findViewById<RecyclerView>(R.id.depense_list)
+
         button = findViewById<FloatingActionButton>(R.id.depense_add) as FloatingActionButton
+
+        zone_compte = findViewById<RecyclerView>(R.id.layout_compte)
+        list = findViewById<RecyclerView>(R.id.depense_list)
+
+
 
 
         if (!checkPermission()) {
             requestPermission()
         }
 
-        //AppRequest(this, this)
+        var monCompte : Compte = Compte(
+            0, "john", 2000)
+        if (CompteJSONFileStorage.get(applicationContext).size() < 1){
+            CompteJSONFileStorage.get(applicationContext).insert(monCompte)
+        }
 
 
-        list = findViewById<RecyclerView>(R.id.depense_list)
 
+        //Compte
+        zone_compte.adapter = object : CompteAdapter(applicationContext){
+            override fun onItemClick(view: View) {
+
+            }
+
+            override fun onLongItemClick(view: View): Boolean {
+                Toast.makeText(applicationContext, "Je veux supprimer", Toast.LENGTH_SHORT).show()
+                return true
+            }
+        }
+
+
+        //Liste depense
         list.adapter = object : DepenseAdapter(applicationContext) {
             override fun onItemClick(view: View) {
                 val intent = Intent(applicationContext, ItemActivity::class.java).apply {
@@ -74,6 +104,7 @@ class MainActivity : AppCompatActivity(), Updatable {
         button.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 startActivity(Intent(this@MainActivity, DepenseAddActivity::class.java))
+                finish()
             }
         })
 

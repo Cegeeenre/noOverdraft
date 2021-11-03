@@ -26,7 +26,7 @@ class DepenseAddActivity : AppCompatActivity() {
 
 
         buttonadd = findViewById<Button>(R.id.add_button_send) as Button
-
+        val intent = Intent(this,MainActivity::class.java)
 
         buttonadd.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
@@ -38,7 +38,7 @@ class DepenseAddActivity : AppCompatActivity() {
                 val description = findViewById<EditText>(R.id.add_description).getText().toString()
                 //Log.i("description", description)
 
-                Toast.makeText(applicationContext, "hjhhhhhhhhh", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Dépense ajoutée avec succès", Toast.LENGTH_SHORT).show()
 
                 var maDepense:Depense =Depense(
                     0, nom, montant, description,
@@ -46,19 +46,10 @@ class DepenseAddActivity : AppCompatActivity() {
 
                 DepenseJSONFileStorage.get(applicationContext).insert(maDepense)
 
-                finishActivity(0)
+                startActivity(intent)
 
             }
         })
-
-
-
-
-
-
-
-
-
 
     }
 }
