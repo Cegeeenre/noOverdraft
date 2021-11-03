@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FD6969</color>
-    <color name="purple_700">#FD6969</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="beige_item_depense">#FEFFEF</color>
-    <color name="red_montant">#F74C4C</color>
-
-
-
-    /*Activity main color*/
-    <color name="main_mois">#6495ED</color>
-    <color name="main_semaine">#DE3163</color>
-    <color name="main_compte">#FF7F50</color>
 </resources>

@@ -17,30 +17,26 @@
             android:text = "Rentrez votre dépense"/>
 
         <EditText
-            android:id="@+id/add_nom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint = "Nom de votre dépense"/>
 
         <EditText
-            android:id="@+id/add_depense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint = "Montant"/>
 
         <EditText
-            android:id="@+id/add_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint = "Description"/>
 
 
         <Button
-            android:id="@+id/add_button_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text = "Créer"/>
+            android:text = "Créer"
 
     </LinearLayout>
 
