@@ -11,7 +11,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nooverdraft.R
+import com.example.nooverdraft.model.Compte
 import com.example.nooverdraft.model.Depense
+import com.example.nooverdraft.storage.CompteJSONFileStorage
 import com.example.nooverdraft.storage.DepenseJSONFileStorage
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -43,6 +45,18 @@ class DepenseAddActivity : AppCompatActivity() {
                 var maDepense:Depense =Depense(
                     0, nom, montant, description,
                     "Nourriture", "30/05/2021")
+                var compte : Compte = CompteJSONFileStorage.get(applicationContext).find(1) as Compte
+
+                //Gere le compte, en enlevant la moula
+                val solde : Int = compte.num_compte - montant
+                val name : String = compte.nom
+                var temp_compte : Compte = Compte(
+                    0, name, solde)
+
+                CompteJSONFileStorage.get(applicationContext).update(1, temp_compte as Compte)
+
+
+
 
                 DepenseJSONFileStorage.get(applicationContext).insert(maDepense)
 

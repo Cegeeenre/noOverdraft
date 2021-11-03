@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity(), Updatable {
         val EXTRA_DEPENSE = "EXTRA_DEPENSE"
         const val READ_STORAGE_CODE = 1
         const val WRITE_STORAGE_CODE = 2
+        const val NB_COMPTE = 1
     }
 
 
@@ -90,6 +91,8 @@ class MainActivity : AppCompatActivity(), Updatable {
 
             override fun onLongItemClick(view: View): Boolean {
                 Toast.makeText(applicationContext, "Je veux supprimer", Toast.LENGTH_SHORT).show()
+                DepenseJSONFileStorage.get(applicationContext).delete(view.tag as Int)
+                update()
                 return true
             }
         }
