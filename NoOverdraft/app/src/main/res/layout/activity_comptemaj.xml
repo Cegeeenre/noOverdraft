@@ -6,47 +6,39 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="100px"
+            android:layout_gravity="center"
             android:layout_marginBottom="100px"
-            android:text = "Rentrez votre dépense"/>
+            android:gravity="center"
+            android:text = "Configurez votre compte"/>
 
         <EditText
-            android:id="@+id/add_nom"
+            android:id="@+id/compte_nom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint = "Nom de votre dépense"/>
+            android:hint = "Nom"/>
 
         <EditText
-            android:id="@+id/add_depense"
+            android:id="@+id/compte_montant"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
             android:hint = "Montant"/>
 
-        <EditText
-            android:id="@+id/add_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint = "Description"/>
-
 
         <Button
-            android:id="@+id/add_button_send"
+            android:id="@+id/compte_changement_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text = "Créer"/>
+            android:text = "Changer"/>
 
     </LinearLayout>
-
-
-
 
 
 

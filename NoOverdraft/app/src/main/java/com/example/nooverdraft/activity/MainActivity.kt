@@ -33,6 +33,17 @@ import com.example.nooverdraft.model.Compte
 import com.example.nooverdraft.request.AppRequest
 import com.example.nooverdraft.storage.CompteJSONFileStorage
 import com.example.nooverdraft.activity.DepenseAddActivity as DepenseAddActivity
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+
+import android.app.PendingIntent
+import android.content.Context
+import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.os.Build
+import android.widget.RemoteViews
+
 
 class MainActivity : AppCompatActivity(), Updatable {
 
@@ -48,13 +59,14 @@ class MainActivity : AppCompatActivity(), Updatable {
     lateinit var zone_compte: RecyclerView
     lateinit var button: FloatingActionButton
 
-
     lateinit var notificationManager: NotificationManager
     lateinit var notificationChannel: NotificationChannel
     lateinit var builder: Notification.Builder
     private val channelId = "i.apps.notifications"
     private val description = "Test notification"
 
+    lateinit var buttonimport: FloatingActionButton
+    lateinit var buttonchange: Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,9 +75,14 @@ class MainActivity : AppCompatActivity(), Updatable {
 
         //Selection des boutons/Layout
         button = findViewById<FloatingActionButton>(R.id.depense_add) as FloatingActionButton
+
+        buttonimport =
+            findViewById<FloatingActionButton>(R.id.import_depense) as FloatingActionButton
+
         zone_compte = findViewById<RecyclerView>(R.id.layout_compte)
         list = findViewById<RecyclerView>(R.id.depense_list)
 
+        buttonchange = findViewById<Button>(R.id.button_changement) as Button
 
 
         //Permession test read/write
@@ -82,6 +99,10 @@ class MainActivity : AppCompatActivity(), Updatable {
         var monCompte : Compte = Compte(
             0, "john", 2000)
         if (CompteJSONFileStorage.get(applicationContext).size() < 1){
+        var monCompte: Compte = Compte(
+            0, "john", 2000
+        )
+        if (CompteJSONFileStorage.get(applicationContext).size() < 1) {
             CompteJSONFileStorage.get(applicationContext).insert(monCompte)
         }
 
@@ -118,10 +139,20 @@ class MainActivity : AppCompatActivity(), Updatable {
         }
 
 
+        buttonimport.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                AppRequest(this@MainActivity, this@MainActivity)
+                update()
+            }
+        })
 
 
+        buttonchange.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                startActivity(Intent(this@MainActivity, CompteChangeActivity::class.java))
 
-
+            }
+        })
 
 
         button.setOnClickListener(object : View.OnClickListener {
@@ -214,6 +245,12 @@ class MainActivity : AppCompatActivity(), Updatable {
 
     override fun update() {
         list.adapter?.notifyDataSetChanged()
+        zone_compte.adapter?.notifyDataSetChanged()
     }
+
+
+
+
+
 
 }

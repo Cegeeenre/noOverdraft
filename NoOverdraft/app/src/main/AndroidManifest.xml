@@ -29,6 +29,10 @@
             android:name=".activity.ItemActivity">
         </activity>
 
+        <activity
+            android:name=".activity.CompteChangeActivity">
+        </activity>
+
 
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>

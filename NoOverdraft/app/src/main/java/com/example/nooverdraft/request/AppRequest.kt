@@ -18,6 +18,8 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
 import androidx.core.content.ContextCompat.checkSelfPermission
+import com.example.nooverdraft.model.Compte
+import com.example.nooverdraft.storage.CompteJSONFileStorage
 
 
 class AppRequest(private val context: Context, updatable: Updatable) {
@@ -67,6 +69,9 @@ class AppRequest(private val context: Context, updatable: Updatable) {
         val depenses = json.getJSONArray("depenses")
         for (i in 0 until depenses.length()) {
             val depense = depenses.getJSONObject(i)
+
+            val montant = depense.getInt(Depense.DEPENSE_MONTANT)
+
             DepenseJSONFileStorage.get(context).insert(
                 Depense(
                     0,
@@ -76,6 +81,19 @@ class AppRequest(private val context: Context, updatable: Updatable) {
                     "Nourriture", "10/10/2021"
                 )
             )
+
+            var compte : Compte = CompteJSONFileStorage.get(context).find(1) as Compte
+
+            //Gere le compte, en enlevant la moula
+            val solde : Int = compte.num_compte - montant
+            Log.i("compte", solde.toString())
+            val name : String = compte.nom
+            var temp_compte : Compte = Compte(
+                0, name, solde)
+
+            CompteJSONFileStorage.get(context).update(1, temp_compte as Compte)
+
+
         }
     }
 }

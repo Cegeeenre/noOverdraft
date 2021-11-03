@@ -11,17 +11,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="20dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_dashboard_text"
-            android:textSize="20dp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_weight="0.75"
+            android:gravity="center"
+            android:textSize="30dp" />
+
+        <Button
+            android:id="@+id/button_changement"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end"
+            android:background="@drawable/ic_settings"/>
+
+    </LinearLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
@@ -69,7 +82,20 @@
             android:layout_margin="16dp"
             android:src="@drawable/ic_add"
             android:tint="@color/white"
+            android:backgroundTint="@color/main_compte"
             />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/import_depense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity = "bottom"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_import"
+            android:tint="@color/white"
+            android:backgroundTint="@color/main_compte"
+            />
+
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
