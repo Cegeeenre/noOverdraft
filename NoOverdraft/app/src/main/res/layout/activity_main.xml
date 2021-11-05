@@ -71,17 +71,6 @@
                 tools:layout_editor_absoluteX="-67dp"
                 tools:layout_editor_absoluteY="174dp" />
 
-            <!-- TEST BOUTON -->
-            <Button
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:onClick="btnNotify"
-                android:text="Show Notification"
-                tools:layout_editor_absoluteX="113dp"
-                tools:layout_editor_absoluteY="375dp" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
