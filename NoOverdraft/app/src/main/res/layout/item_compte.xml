@@ -9,6 +9,7 @@
         android:layout_margin="10dp"
         android:orientation="horizontal"
         >
+        <!--
         <LinearLayout
             android:id="@+id/linear_layout_call"
             android:layout_width="match_parent"
@@ -23,7 +24,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_mois"/>
-            <!--app:tint="@color/white"-->
 
             <TextView
                 android:id="@+id/total_depense_somme"
@@ -50,7 +50,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_semaine"/>
-            <!--app:tint="@color/white"-->
 
             <TextView
                 android:layout_width="match_parent"
@@ -60,7 +59,7 @@
                 android:textColor="@color/white"/>
 
         </LinearLayout>
-
+    -->
    <LinearLayout
        android:id="@+id/linear_layout_mail"
        android:layout_width="match_parent"
@@ -88,7 +87,6 @@
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:src="@drawable/ic_argent"/>
-           <!--app:tint="@color/white"-->
 
 
        </LinearLayout>

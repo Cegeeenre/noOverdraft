@@ -86,10 +86,10 @@ class MainActivity : AppCompatActivity(), Updatable {
 
         //Ajout du compte
         var monCompte : Compte = Compte(
-            0, "john", 2000)
+            0, "Courant", 2000)
         if (CompteJSONFileStorage.get(applicationContext).size() < 1){
         var monCompte: Compte = Compte(
-            0, "john", 2000
+            0, "Courant", 2000
         )}
         if (CompteJSONFileStorage.get(applicationContext).size() < 1) {
             CompteJSONFileStorage.get(applicationContext).insert(monCompte)
@@ -146,35 +146,6 @@ class MainActivity : AppCompatActivity(), Updatable {
 
         button.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                val intent = Intent(this@MainActivity, MainActivity::class.java)
-                val contentView = RemoteViews(packageName, R.layout.activity_notification)
-
-                // checking if android version is greater than oreo(API 26) or not
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    notificationChannel = NotificationChannel(channelId, description, NotificationManager.IMPORTANCE_HIGH)
-                    notificationChannel.enableLights(true)
-                    notificationChannel.lightColor = Color.GREEN
-                    notificationChannel.enableVibration(false)
-                    notificationManager.createNotificationChannel(notificationChannel)
-
-                    builder = Notification.Builder(this@MainActivity, channelId)
-                        .setContent(contentView)
-                        .setSmallIcon(R.drawable.ic_launcher_background)
-                        .setLargeIcon(BitmapFactory.decodeResource(this@MainActivity.resources, R.drawable.ic_launcher_background))
-                        .setContentIntent(pendingIntent)
-                } else {
-
-                    builder = Notification.Builder(this@MainActivity)
-                        .setContent(contentView)
-                        .setSmallIcon(R.drawable.ic_launcher_background)
-                        .setLargeIcon(BitmapFactory.decodeResource(this@MainActivity.resources, R.drawable.ic_launcher_background))
-                        .setContentIntent(pendingIntent)
-                }
-                notificationManager.notify(1234, builder.build())
-
-                /////////////////////////////////////////////////
-
-
                 startActivity(Intent(this@MainActivity, DepenseAddActivity::class.java))
                 finish()
             }
