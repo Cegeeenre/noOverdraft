@@ -63,18 +63,21 @@ class MainActivity : AppCompatActivity(), Updatable {
         setContentView(R.layout.activity_main)
 
         //Selection des boutons/Layout
+        // bouton pour ajouter une dépense
         button = findViewById<FloatingActionButton>(R.id.depense_add) as FloatingActionButton
-
+        // bouton pour importer les dépenses
         buttonimport =
             findViewById<FloatingActionButton>(R.id.import_depense) as FloatingActionButton
-
+        // recycler view du compte
         zone_compte = findViewById<RecyclerView>(R.id.layout_compte)
+        // recycler view de la liste
         list = findViewById<RecyclerView>(R.id.depense_list)
 
+        // bouton pour changer le nom + montant du compte
         buttonchange = findViewById<Button>(R.id.button_changement) as Button
 
 
-        //Permession test read/write
+        //Permission test read/write
         if (!checkPermission()) {
             requestPermission()
         }
@@ -104,7 +107,7 @@ class MainActivity : AppCompatActivity(), Updatable {
             }
 
             override fun onLongItemClick(view: View): Boolean {
-                Toast.makeText(applicationContext, "Je veux supprimer", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Voici mon compte", Toast.LENGTH_SHORT).show()
                 return true
             }
         }
@@ -113,6 +116,7 @@ class MainActivity : AppCompatActivity(), Updatable {
         //Liste depense
         list.adapter = object : DepenseAdapter(applicationContext) {
             override fun onItemClick(view: View) {
+                // pour aller sur la page d'une dépense
                 val intent = Intent(applicationContext, ItemActivity::class.java).apply {
                     putExtra(EXTRA_DEPENSE, view.tag as Int)
                 }
@@ -120,6 +124,7 @@ class MainActivity : AppCompatActivity(), Updatable {
             }
 
             override fun onLongItemClick(view: View): Boolean {
+                // pour supprimer une dépense
                 Toast.makeText(applicationContext, "Je veux supprimer", Toast.LENGTH_SHORT).show()
                 DepenseJSONFileStorage.get(applicationContext).delete(view.tag as Int)
                 update()
@@ -127,7 +132,7 @@ class MainActivity : AppCompatActivity(), Updatable {
             }
         }
 
-
+        // pour importer les dépenses
         buttonimport.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 AppRequest(this@MainActivity, this@MainActivity)
@@ -135,7 +140,7 @@ class MainActivity : AppCompatActivity(), Updatable {
             }
         })
 
-
+        // pour aller sur la page pour changer le compte
         buttonchange.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 startActivity(Intent(this@MainActivity, CompteChangeActivity::class.java))
@@ -143,7 +148,7 @@ class MainActivity : AppCompatActivity(), Updatable {
             }
         })
 
-
+        // pour aller sur la page pour ajouter une dépense
         button.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 startActivity(Intent(this@MainActivity, DepenseAddActivity::class.java))
@@ -182,6 +187,10 @@ class MainActivity : AppCompatActivity(), Updatable {
 
     }
 
+    // PERMISSIONS
+
+
+    // Pour écrire et lire  dans le stockage
     private fun checkPermission(): Boolean {
         return ContextCompat.checkSelfPermission(
             this,
@@ -203,6 +212,7 @@ class MainActivity : AppCompatActivity(), Updatable {
         )
     }
 
+    // pour actualiser nos recycler view
     override fun update() {
         list.adapter?.notifyDataSetChanged()
         zone_compte.adapter?.notifyDataSetChanged()

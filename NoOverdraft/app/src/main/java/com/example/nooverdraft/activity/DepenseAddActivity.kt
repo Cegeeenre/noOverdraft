@@ -47,11 +47,13 @@ class DepenseAddActivity : AppCompatActivity() {
 
         buttonadd.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
+                // lorsque l'on clique sur le bouton
+
                 //Log.i("test", "BONJOUR")
 
                 notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-
+                // on récupère les données de la dépense à ajouter
                 var nom = findViewById<EditText>(R.id.add_nom).getText().toString()
                 //Log.i("nom", nom)
                 var montant = findViewById<EditText>(R.id.add_depense).getText().toString().toInt()
@@ -65,7 +67,7 @@ class DepenseAddActivity : AppCompatActivity() {
                     "Nourriture", "30/05/2021")
                 var compte : Compte = CompteJSONFileStorage.get(applicationContext).find(1) as Compte
 
-                //Gere le compte, en enlevant la moula
+                //Gere le compte, en enlevant l'argent
                 val solde : Int = compte.num_compte - montant
                 val name : String = compte.nom
                 var temp_compte : Compte = Compte(
@@ -73,9 +75,12 @@ class DepenseAddActivity : AppCompatActivity() {
 
                 CompteJSONFileStorage.get(applicationContext).update(1, temp_compte as Compte)
 
+                // si le solde est négatif on notifie
                 if (solde<0) {
-                    btnNotify()
+                    SoldeNotify()
                 }
+
+                // on l'insert
                 DepenseJSONFileStorage.get(applicationContext).insert(maDepense)
 
                 startActivity(intent)
@@ -85,7 +90,7 @@ class DepenseAddActivity : AppCompatActivity() {
 
     }
 
-    fun btnNotify() {
+    fun SoldeNotify() {
         val intent = Intent(this, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

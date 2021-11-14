@@ -29,6 +29,7 @@ class CompteChangeActivity : AppCompatActivity() {
 
 
         var compte : Compte = CompteJSONFileStorage.get(applicationContext).find(1) as Compte
+        // on récupère les infos
         findViewById<EditText>(R.id.compte_nom).setText(compte.nom)
         findViewById<EditText>(R.id.compte_montant).setText(compte.num_compte.toString())
 
@@ -36,15 +37,16 @@ class CompteChangeActivity : AppCompatActivity() {
         buttonchange.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
 
-
+                // on crée un nouveau compte
                 var nouveaunom = findViewById<EditText>(R.id.compte_nom).getText().toString()
                 var nouveaumontant = findViewById<EditText>(R.id.compte_montant).getText().toString().toInt()
 
                 var nouveaucompte : Compte = Compte(
                     0, nouveaunom, nouveaumontant)
 
-                Log.i("nouveaunom", nouveaunom)
+                //Log.i("nouveaunom", nouveaunom)
 
+                // on change le compte courant par le nouveau
                 CompteJSONFileStorage.get(applicationContext).update(1, nouveaucompte as Compte)
 
                 startActivity(intent)

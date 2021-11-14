@@ -10,6 +10,8 @@ import com.example.nooverdraft.R
 import com.example.nooverdraft.adapter.DepenseAdapter
 import com.example.nooverdraft.model.Depense
 
+// INUTILE
+
 class ListActivity : AppCompatActivity() {
 
     companion object {

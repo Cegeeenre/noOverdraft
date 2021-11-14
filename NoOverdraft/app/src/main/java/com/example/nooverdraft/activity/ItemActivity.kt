@@ -19,10 +19,10 @@ class ItemActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_depense)
 
-
+        // on prend l'id de la dépense que l'on veut afficher
         val id = intent.getIntExtra(MainActivity.EXTRA_DEPENSE, 0)
         depense = DepenseJSONFileStorage.get(applicationContext).find(id)
-
+        // on remplace les champs
         findViewById<TextView>(R.id.affiche_nom).text = depense?.nom;
         findViewById<TextView>(R.id.affiche_montant).text = depense?.montant.toString();
         findViewById<TextView>(R.id.affiche_description).text = depense?.description;

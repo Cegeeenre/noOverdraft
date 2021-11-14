@@ -30,6 +30,7 @@ class AppRequest(private val context: Context, updatable: Updatable) {
 
 
     init {
+        // instantiation de la requête
         val queue = Volley.newRequestQueue(context)
         val request = JsonObjectRequest(
             Request.Method.GET, URL, null,
