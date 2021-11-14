@@ -35,6 +35,8 @@ import com.example.nooverdraft.storage.CompteJSONFileStorage
 import com.example.nooverdraft.activity.DepenseAddActivity as DepenseAddActivity
 
 class MainActivity : AppCompatActivity(), Updatable {
+    //Louise Bollard
+    //Tom THIERRY
 
     companion object {
         val EXTRA_DEPENSE = "EXTRA_DEPENSE"
